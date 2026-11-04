@@ -42,7 +42,7 @@ export default function RegisterPage() {
     
     const data = await res.json();
     localStorage.setItem('access', data.access);
-    router.push('/dashboard');
+    router.push('/');
   }
 
   return (

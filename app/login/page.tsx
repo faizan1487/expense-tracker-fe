@@ -31,7 +31,8 @@ export default function AuthenticationTitle() {
     
     const data = await res.json();
     localStorage.setItem('access', data.access);
-    router.push('/dashboard');
+    localStorage.setItem('refresh', data.refresh);
+    router.push('/');
   }
 
   return (
