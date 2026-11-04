@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -51,7 +52,7 @@ export default function RegisterPage() {
       </Title>
 
       <Text className={classes.subtitle}>
-        Already have an account? <Anchor>Login</Anchor>
+        Already have an account? <Anchor component={Link} href='/login'>Login</Anchor>
       </Text>
 
       <Paper withBorder shadow="sm" p={22} mt={30} radius="md">

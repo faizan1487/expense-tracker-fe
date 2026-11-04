@@ -1,65 +1,43 @@
 class Solution(object):
-    def search(self, nums, target):
+    def coinChange(self, coins, amount):
         """
-        :type nums: List[int]
-        :type target: int
+        :type coins: List[int]
+        :type amount: int
         :rtype: int
         """
-        left = 0
-        right = len(nums)-1
-        mid = len(nums) // 2
-        # print("mid", mid)
+        coins_needed = {}
 
-        # print(3//2)
-        # print(1//2)
+        for i in range(amount+1):
+            print("i",i)
+            for coin in coins:
+                # ±3 subtract current coin form amount
+                if coin > i:
+                    print("skipping")
+                    continue
 
-        while left < right:
-            print("left", left)
-            print("right", right)
-            print("mid", mid)
-            # nums = [4,5,6,7,0,1,2]
-            if target == nums[left]:
-                return left
-            if target == nums[mid]:
-                return mid
-            if target == nums[right]:
-                return right
-            if nums[left] < nums[mid]:
-                print("sorted side")
-                if target >= nums[left] and target <= nums[mid]:
-                    if nums[mid] > target:
-                        right = mid - 1
-                    elif nums[mid] < target:
-                        left = mid + 1
-                    mid = (right-left) // 2
-                    mid = left + mid
+                remaining = i - coin
+                if remaining == 0:
+                    coins_needed[i] = 1
                 else:
-                    left = mid + 1
-                    mid = (right-left) // 2
-                    mid = left + mid
-            else:
-                print("other side is sroted")
-                # lets find target in sorted side
-                if target == nums[right]:
-                    return right
+                    if remaining in coins_needed:
+                        if i in coins_needed:
+                            print("coins_needed", coins_needed)
+                            print("i in coins", i)
+                            print("coins_needed[i]", coins_needed[i])
+                            print("remaining", remaining)
+                            if coins_needed[remaining] + 1 < coins_needed[i]:
+                                coins_needed[i] = coins_needed[remaining] + 1
+                        else:
+                            print("i not in coins")
+                            coins_needed[i] = coins_needed[remaining] + 1
+                    
+        print(coins_needed)
+        if coins_needed[amount]:
+            return coins_needed[amount]
+        else:
+            return -1
 
-                if target >= nums[mid] and target <=nums[right]:
-                    # target in sorted side
-                    if nums[mid] > target:
-                        right = mid - 1
-                    elif nums[mid] < target:
-                        left = mid + 1
-                else:
-                    # target is in unsorted side from left to mid
-                    right = mid-1
-                    mid = (right-left) // 2
-
-
-
-            print("-------------")
-        return -1
-
-nums = [4,5,6,7,0,1,2]
-target = 1
+coins = [5, 3]
+amount = 11
 sol = Solution()
-print("answer", sol.search(nums, target))
+print("answer", sol.coinChange(coins, amount))

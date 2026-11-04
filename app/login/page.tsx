@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -40,7 +41,7 @@ export default function AuthenticationTitle() {
       </Title>
 
       <Text className={classes.subtitle}>
-        Do not have an account yet? <Anchor>Create account</Anchor>
+        Do not have an account yet? <Anchor component={Link} href='/register'>Create account</Anchor>
       </Text>
 
       <Paper withBorder shadow="sm" p={22} mt={30} radius="md">
