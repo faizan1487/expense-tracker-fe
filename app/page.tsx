@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Button
@@ -6,7 +7,14 @@ import {
 
 export default function HomePage() {
   const router = useRouter();
+  const [loggedIn, setLoggedIn] = useState(false);
 
+  // Hide logout button when logged in
+  useEffect(() => {
+    setLoggedIn(!!localStorage.getItem('access'));
+  }, []);
+
+  // Remove token from localstorage and hit logout api
   async function handleLogout() {
     const refresh = localStorage.getItem('refresh');
 
@@ -23,9 +31,9 @@ export default function HomePage() {
 
   return (
     <>
-      <Button onClick={handleLogout} type="submit" fullWidth mt="xl" radius="md">
+      {loggedIn && <Button onClick={handleLogout} type="submit" fullWidth mt="xl" radius="md">
         logout
-      </Button>
+      </Button>}
     </>
   );
 }
